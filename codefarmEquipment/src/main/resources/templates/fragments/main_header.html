@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
+  <title th:text="${title}">Common</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <section id="container">
+    <header class="header black-bg" th:fragment="head(title)">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="index.html" th:href="@{/}" class="logo"><b>CODEFARM<span> MANAGEMENT</span></b></a>
+      <!--logo end-->
+      <div class="nav notify-row" id="top_menu">
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+<!-- 		<div sec:authorize="hasRole('ROLE_ADMIN')">
+		  This content is only shown to administrators.
+		</div>
+		<div sec:authorize="hasRole('ROLE_USER')">
+		  This content is only shown to users.
+		</div> -->
+          <li>
+          <a class="logout" th:href="@{/account/login}"
+             sec:authorize="!isAuthenticated()" >Login</a>
+          </li>
+          <li>
+          <a class="logout" th:href="@{/account/register}"
+             sec:authorize="!isAuthenticated()" >Sign in</a>
+          </li>
+          
+          <li>
+           <form class="form-inline my-2 my-lg-0" style="margin-top: 16px;" th:action="@{/logout}" method="POST" sec:authorize="isAuthenticated()">
+                <span class="text-white" sec:authentication="name">사용자</span>
+                <span class="text-white mx-2" sec:authentication="principal.authorities">권한</span>
+                <button class="btn btn-theme btn-block-sm" type="submit">Logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </header>
+  </section>
+</body>
+</html>

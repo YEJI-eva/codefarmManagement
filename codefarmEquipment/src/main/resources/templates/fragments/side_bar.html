@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<aside th:fragment="menu(menu)" >
+    <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+            <p class="centered"><a th:href="@{/}"><img src="/img/ui-sam.jpg" th:href="@{/static/img/ui-sam.jpg}" class="img-circle" width="80"></a></p>
+            <h5 class="centered" sec:authentication="name">UserName</h5>
+            <li class="mt">
+                <a th:href="@{/}" th:classappend="${menu} == 'home'? 'active'">
+                    <i class="fa fa-dashboard"></i>
+                    <span>Main</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a th:classappend="${menu} == 'board'? 'active'">
+                    <i class="fa fa-desktop"></i>
+                    <span>Board</span>
+                </a>
+                <ul class="sub">
+                    <li th:classappend="${menu} == 'board'? 'active'">
+                        <a th:href="@{/board/list}">Notice</a>
+                    </li>
+                    <li>
+	                <a href="responsive_table.html">Responsive Table</a>
+	                </li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" th:classappend="${menu} == 'equipment'? 'active'">
+                    <i class="fa fa-cogs"></i>
+                    <span>Equipment</span>
+                </a>
+                <ul class="sub">
+                    <li><a th:href="@{/equipment/list}">장비목록</a></li>                    
+                    <li><a th:href="@{/equipment/UseList}" >장비사용현황</a></li>
+                    <li><a href="calendar.html">장비사용신청</a></li>
+                    <li><a href="calendar.html">장비사용자관리</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="inbox.html">
+                    <i class="fa fa-envelope"></i>
+                    <span>Mail </span>
+                    <span class="label label-theme pull-right mail-info">2</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class=" fa fa-bar-chart-o"></i>
+                    <span>Charts</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="morris.html">Morris</a></li>
+                    <li><a href="chartjs.html">Chartjs</a></li>
+                    <li><a href="flot_chart.html">Flot Charts</a></li>
+                    <li><a href="xchart.html">xChart</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-comments-o"></i>
+                    <span>Chat Room</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="lobby.html">Lobby</a></li>
+                    <li><a href="chat_room.html"> Chat Room</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="google_maps.html">
+                    <i class="fa fa-map-marker"></i>
+                    <span>코하 바로가기 </span>
+                </a>
+            </li>
+        </ul>
+        <!-- sidebar menu end-->
+    </div>
+</aside>
+
+</html>

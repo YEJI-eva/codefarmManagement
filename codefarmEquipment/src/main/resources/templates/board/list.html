@@ -1,0 +1,102 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon" th:href="@{/img/favicon.png}">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon" th:href="@{/img/apple-touch-icon.png}">
+  <!-- Bootstrap core CSS -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/lib/bootstrap/css/bootstrap.min.css}">
+  <!--external css-->
+  <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"
+    th:href="@{/lib/font-awesome/css/font-awesome.css}" />
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+  <link href="css/style-responsive.css" rel="stylesheet" th:href="@{/css/style-responsive.css}">
+  <title>Board</title>
+</head>
+
+<body>
+  <header th:replace="fragments/main_header :: head('board')"></header>
+  <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:replace="fragments/common :: menu('board')">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+  </div>
+  <aside th:replace ="fragments/side_bar :: menu('board')"></aside>
+  <section id="main-content">
+    <section class="wrapper site-min-height">
+      <h2><i class="fa fa-angle-right"></i>게시판</h2>
+      <div>총 건수 : <span th:text="${boards.totalElements}"></span>
+	</div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="content-panel">
+            <h4><i class="fa fa-angle-right"></i> Board</h4>
+            <hr>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">번호</th>
+                  <th scope="col">제목</th>
+                  <th scope="col">작성자</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="board : ${boards}">
+                  <td th:text="${board.board_no}">No</td>
+                  <td><a th:text="${board.title}" th:href="@{/board/form(board_no=${board.board_no})}">Otto</a></td>
+                  <td th:text ="${board.user.username}">Name</td>
+                </tr>
+              </tbody>
+            </table>
+           <hr>
+           <div class="text-right" style="margin-right:2%;">
+            <a type="button" class="btn btn-theme" th:href="@{/board/form}">쓰기</a>
+          </div>
+            <nav aria-label="Page navigation example" style="padding: 2%; margin-left: 44%;" >
+             <form class="form-inline d-flex justify-content-end" method="GET" th:action="@{/board/list}">
+		        <div class="form-group mx -sm-3 mb-2">
+		          <label for="searchText" class="sr-only">Search</label>
+		          <input type="text" class="form-control" id="searchText" name="searchText">
+		        </div>
+		        <button type="submit" class="btn btn-light mb-2">search</button>
+		        </form>
+              <ul class="pagination" style="text-align: center;">
+                <li class="page-item" th:classappend="${1 == boards.pageable.pageNumber+1}?'disabled'">
+                  <!-- 가장작은 페이지 값 -->
+                  <a class="page-link" href="#" th:href="@{/board/list(page=${boards.pageable.pageNumber-1})}"
+                    tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item" th:classappend="${i==boards.pageable.pageNumber+1}?'disabled'" th:each="i : ${#numbers.sequence( startPage, endPage)}">
+                  <a class="page-link" href="#" th:href="@{/board/list(page=${i-1})}" th:text="${i}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${boards.totalPages==boards.pageable.pageNumber+1}?'disabled'">
+                  <a class="page-link" href="#" th:href="@{/board/list(page=${boards.pageable.pageNumber+1})}">Next</a>
+                </li>
+              </ul>
+           </nav>
+         </div>
+        </div>
+      </div>
+      </section>
+      <!-- /wrapper -->
+    </section>
+  </body>
+    <!-- js placed at the end of the document so the pages load faster -->
+	<script src="lib/jquery/jquery.min.js" th:src="@{/lib/jquery/jquery.min.js}"></script>
+	<script src="lib/bootstrap/js/bootstrap.min.js"th:src="@{/lib/bootstrap/js/bootstrap.min.js}"></script>
+	<script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js" th:src="@{/lib/jquery.dcjqaccordion.2.7.js}" ></script>
+	<script src="lib/jquery.scrollTo.min.js"  th:src="@{/lib/jquery.scrollTo.min.js}"></script>
+	<script src="lib/jquery.nicescroll.js" type="text/javascript"  th:src="@{/lib/jquery.nicescroll.js}"></script>
+	<!--common script for all pages-->
+	<script src="lib/common-scripts.js" th:src="@{/lib/common-scripts.js}"></script>
+	<!--script for this page-->
+</html>
